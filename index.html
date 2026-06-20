@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stelphi — Dress with Intention</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --ink: #0A0910;
+    --cream: #F2ECDD;
+    --gold: #C9A84C;
+    --gold-light: #E3CE92;
+    --olive: #5B6B4F;
+    --olive-deep: #3F4B37;
+    --text-on-cream: #1A1812;
+    --text-dim: #8E89A0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background: var(--ink);
+  }
+
+  /* diagonal cream block */
+  .block-cream {
+    position: absolute;
+    inset: 0;
+    background: var(--cream);
+    clip-path: polygon(0 0, 78% 0, 58% 100%, 0% 100%);
+  }
+
+  /* diagonal olive sliver — the seam */
+  .block-seam {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, var(--gold) 0%, var(--olive) 60%, var(--olive-deep) 100%);
+    clip-path: polygon(78% 0, 81.4% 0, 61.4% 100%, 58% 100%);
+  }
+
+  /* dark right block stays var(--ink) from body, no extra div needed */
+
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    clip-path: polygon(0 0, 78% 0, 58% 100%, 0% 100%);
+    z-index: 1;
+  }
+
+  .hero-photo .model-svg {
+    position: absolute;
+    bottom: 0;
+    left: -4%;
+    height: 88%;
+    width: auto;
+    opacity: 0.94;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wordmark {
+    text-align: center;
+    padding: 48px 0 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: 0.5em;
+    color: var(--text-on-cream);
+  }
+
+  .hero-main {
+    position: relative;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 64% 36%;
+    align-items: center;
+    min-height: 0;
+  }
+
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(26px, 3.6vw, 58px);
+    line-height: 1.12;
+    color: var(--text-on-cream);
+    letter-spacing: -0.01em;
+    justify-self: end;
+    margin-right: clamp(16px, 4vw, 56px);
+    max-width: 90%;
+  }
+
+  .hero-coming {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(22px, 3.8vw, 64px);
+    color: var(--cream);
+    justify-self: start;
+    margin-left: clamp(28px, 9vw, 180px);
+    white-space: nowrap;
+  }
+
+  .hero-foot {
+    position: relative;
+    display: grid;
+    grid-template-columns: 64% 36%;
+    align-items: flex-end;
+    padding: 0 0 56px;
+  }
+
+  .hero-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-on-cream);
+    opacity: 0.65;
+    justify-self: end;
+    margin-right: clamp(16px, 4vw, 56px);
+    white-space: nowrap;
+  }
+
+  .hero-tag.dark {
+    color: var(--cream);
+    opacity: 0.55;
+    justify-self: start;
+    margin-left: clamp(28px, 9vw, 90px);
+  }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    background: var(--ink);
+    padding: 110px 6vw 48px;
+    text-align: center;
+    border-top: 1px solid rgba(242,236,221,0.08);
+  }
+
+  .footer-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.85;
+    margin-bottom: 18px;
+  }
+
+  .footer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 4.5vw, 52px);
+    color: var(--cream);
+    margin-bottom: 22px;
+  }
+
+  .footer-rule {
+    width: 64px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+    margin: 0 auto 26px;
+  }
+
+  .footer-line {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+
+  .footer-email {
+    display: inline-block;
+    margin-top: 28px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--gold-light);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    padding-bottom: 3px;
+    transition: opacity 0.2s ease;
+  }
+
+  .footer-email:hover { opacity: 0.75; }
+
+  .footer-base {
+    margin-top: 90px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(242,236,221,0.06);
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .footer-copy,
+  .footer-social a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    text-decoration: none;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 22px;
+  }
+
+  .footer-social a:hover { color: var(--gold-light); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    .hero { min-height: auto; }
+    .hero-content { min-height: auto; }
+
+    .block-cream { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    .block-seam { display: none; }
+
+    .hero-photo {
+      position: relative;
+      clip-path: none;
+      height: 280px;
+      width: 100%;
+    }
+    .hero-photo .model-svg {
+      left: 50%;
+      transform: translateX(-50%);
+      height: 100%;
+      bottom: 0;
+    }
+
+    .wordmark { font-size: 13px; letter-spacing: 0.4em; padding: 36px 0 0; }
+
+    .hero-main {
+      display: block;
+      padding: 28px 7vw 8px;
+    }
+
+    .hero-headline { font-size: clamp(30px, 8vw, 42px); max-width: 100%; margin: 0 0 14px; justify-self: auto; }
+    .hero-coming { font-size: clamp(20px, 5.5vw, 26px); margin: 0; color: var(--olive-deep); justify-self: auto; display: block; }
+
+    .hero-foot {
+      display: block;
+      padding: 12px 7vw 40px;
+    }
+
+    .hero-tag {
+      display: block;
+      margin: 0 0 8px;
+      justify-self: auto;
+    }
+    .hero-tag.dark {
+      margin: 0;
+      justify-self: auto;
+    }
+
+    .footer { padding: 64px 7vw 40px; }
+    .footer-base { flex-direction: column; gap: 18px; margin-top: 56px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="block-cream"></div>
+  <div class="block-seam"></div>
+  <div class="hero-content">
+    <div class="wordmark">STELPHI</div>
+
+    <div class="hero-photo">
+      <svg class="model-svg" viewBox="0 0 420 760" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+        <!-- ground shadow -->
+        <ellipse cx="190" cy="742" rx="120" ry="14" fill="#0A0910" opacity="0.18"/>
+
+        <!-- back leg (mid-stride) -->
+        <path d="M196 470 C190 540 178 600 168 660 C165 685 168 705 175 722 L198 722 C200 700 204 670 210 640 C216 600 222 540 222 470 Z" fill="#34402C"/>
+        <!-- back shoe -->
+        <path d="M168 718 C168 712 174 708 184 708 L204 708 C210 708 214 712 214 718 L214 726 C214 730 210 732 204 732 L172 732 C167 732 165 728 167 723 Z" fill="#1C1610"/>
+
+        <!-- front leg (mid-stride, forward) -->
+        <path d="M214 466 C222 520 246 570 264 612 C274 636 276 660 270 684 L246 684 C244 658 236 628 222 596 C206 558 196 510 196 466 Z" fill="#3F4B37"/>
+        <!-- front shoe -->
+        <path d="M242 680 C242 674 248 670 258 670 L282 670 C290 670 296 675 296 682 L296 690 C296 694 292 696 286 696 L248 696 C243 696 240 692 242 686 Z" fill="#1C1610"/>
+
+        <!-- torso / blazer -->
+        <path d="M150 248 C148 230 158 214 178 206 C192 200 210 198 226 202 C248 207 262 222 266 244 C270 270 268 300 262 340 C256 388 248 432 240 470 C234 480 200 482 192 470 C182 430 168 384 160 338 C154 300 150 270 150 248 Z" fill="#4A5A3F"/>
+        <!-- blazer lapel -->
+        <path d="M196 210 L182 260 L200 290 L208 250 Z" fill="#3F4B37"/>
+        <path d="M222 206 L236 258 L220 286 L210 244 Z" fill="#3F4B37"/>
+        <!-- inner top (cream) -->
+        <path d="M202 214 C208 230 212 248 212 268 C212 280 210 292 206 302 L222 302 C220 290 218 278 218 266 C218 246 222 228 228 212 C218 206 210 206 202 214 Z" fill="#EDE6D3"/>
+
+        <!-- arm (swinging back, holding bag) -->
+        <path d="M156 250 C140 268 126 292 116 318 C108 340 104 362 106 382 L122 384 C124 364 130 344 140 324 C150 302 162 280 174 262 Z" fill="#3F4B37"/>
+        <!-- hand -->
+        <circle cx="112" cy="388" r="11" fill="#C49A78"/>
+        <!-- bag string -->
+        <line x1="112" y1="388" x2="100" y2="430" stroke="#EDE6D3" stroke-width="2"/>
+        <line x1="112" y1="388" x2="124" y2="430" stroke="#EDE6D3" stroke-width="2"/>
+        <!-- bag -->
+        <ellipse cx="112" cy="452" rx="26" ry="30" fill="none" stroke="#EDE6D3" stroke-width="2.5"/>
+        <path d="M88 452 Q112 460 136 452" stroke="#EDE6D3" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <path d="M90 440 Q112 448 134 440" stroke="#EDE6D3" stroke-width="1.5" fill="none" opacity="0.7"/>
+
+        <!-- other arm (forward, slight bend) -->
+        <path d="M250 244 C266 256 280 272 288 290 C294 304 296 318 292 330 L278 326 C280 314 278 302 272 290 C264 276 252 262 238 252 Z" fill="#4A5A3F"/>
+        <circle cx="290" cy="332" r="10" fill="#C49A78"/>
+
+        <!-- neck -->
+        <rect x="196" y="184" width="24" height="26" rx="8" fill="#C49A78"/>
+
+        <!-- head -->
+        <circle cx="208" cy="158" r="38" fill="#C49A78"/>
+        <!-- hair (curly, rounded mass) -->
+        <path d="M168 152 C162 122 182 96 210 94 C240 92 262 114 262 144 C262 156 258 168 252 176 C254 158 248 142 234 132 C238 144 236 158 228 166 C230 150 222 136 208 130 C198 126 186 128 178 136 C184 130 182 120 174 118 C164 124 160 138 164 152 C158 150 156 158 162 166 C160 158 164 152 168 152 Z" fill="#1C1610"/>
+
+        <!-- collar detail -->
+        <path d="M192 206 L208 222 L224 206" stroke="#2E382A" stroke-width="2" fill="none" opacity="0.5"/>
+      </svg>
+    </div>
+
+    <div class="hero-main">
+      <h1 class="hero-headline">Dress with<br>Intention</h1>
+      <p class="hero-coming">Coming Soon</p>
+    </div>
+
+    <div class="hero-foot">
+      <span class="hero-tag">Vedic &amp; Western Guidance</span>
+      <span class="hero-tag dark">Launching in India</span>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p class="footer-eyebrow">Contact</p>
+  <h2 class="footer-title">Get in Touch</h2>
+  <div class="footer-rule"></div>
+  <p class="footer-line">For early access, partnerships, or press inquiries — reach out and we'll be in touch.</p>
+  <a class="footer-email" href="mailto:admin@stelphi.com">admin@stelphi.com</a>
+
+  <div class="footer-base">
+    <p class="footer-copy">© 2026 Stelphi — All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/stelphi.in/" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:admin@stelphi.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
